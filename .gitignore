@@ -112,3 +112,6 @@ dmypy.json
 
 # VS Code project config
 .vscode/
+
+# temp dirs
+temp*/

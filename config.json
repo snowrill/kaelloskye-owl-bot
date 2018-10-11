@@ -1,6 +1,7 @@
 {
     "proxy": "socks5://tg-kaelloskye:VACey4bI@ru.socksy.seriyps.ru:7777",
-    "start_msg_file": "data/joke.txt",
-    "temp_folder" : "tmp/",
-    "bot_replies": ["Подтверждаю.", "Угу!"]
+    "start_msg_file": "joke.txt",
+    "bot_replies": ["Подтверждаю.", "Угу!"],
+    "download_link": "https://api.telegram.org/file/",
+    "temp_dir": "temp-stickers"
 }

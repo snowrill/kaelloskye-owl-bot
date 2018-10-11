@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-import os
 import json
-import telebot
+import os
 from random import choice
+
+import requests
+import telebot
 
 
 def load_config(filename):
@@ -30,6 +32,25 @@ bot = telebot.TeleBot(config['token'])
 def get_sticker(message):
     """ Возвращает пользователю отправленный им стикер в виде фото """
     bot.send_message(message.chat.id, 'Вы прислали стикер!')
+
+    sticker_info = bot.get_file(message.sticker.file_id)
+    path, emoji = sticker_info.file_path, message.sticker.emoji
+
+    # сформировать ссылку для скачивания
+    link = config['download_link'] + 'bot{}/{}'.format(config['token'], path)
+
+    response = requests.get(link, proxies=config['proxy'])
+    if not os.path.exists(config['temp_dir']):
+        os.mkdir(config['temp_dir'])
+
+    # сохранить стикер
+    filename = '{}/{}'.format(config['temp_dir'], 'sticker.png')
+    with open(filename, 'wb') as photo:
+        photo.write(response.content)
+
+    # отправить стикер
+    with open(filename, 'rb') as photo:   
+        bot.send_photo(message.chat.id, photo, caption=emoji)
 
 
 @bot.message_handler(regexp=r'подтвер[ж]?д[аи]+[е]?(?:шь)?')
