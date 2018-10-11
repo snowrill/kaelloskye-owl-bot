@@ -31,8 +31,6 @@ bot = telebot.TeleBot(config['token'])
 @bot.message_handler(content_types=['sticker'])
 def get_sticker(message):
     """ Возвращает пользователю отправленный им стикер в виде фото """
-    bot.send_message(message.chat.id, 'Вы прислали стикер!')
-
     sticker_info = bot.get_file(message.sticker.file_id)
     path, emoji = sticker_info.file_path, message.sticker.emoji
 
@@ -49,7 +47,7 @@ def get_sticker(message):
         photo.write(response.content)
 
     # отправить стикер
-    with open(filename, 'rb') as photo:   
+    with open(filename, 'rb') as photo:
         bot.send_photo(message.chat.id, photo, caption=emoji)
 
 
@@ -62,11 +60,21 @@ def confirm_smth(message):
 
 
 @bot.message_handler(commands=['start'])
-def send_welcome_msg(message):
+def welcome_message(message):
     """ Приветственное сообщение """
     with open(config['start_msg_file'], encoding='utf-8') as f:
         welcome_msg = f.read()
     bot.send_message(message.chat.id, welcome_msg)
+
+
+@bot.message_handler(commands=['help'])
+def help_message(message):
+    bot.send_message(message.chat.id, config['help_msg'])
+
+
+@bot.message_handler(func=lambda m: True)
+def other_messages(message):
+    bot.reply_to(message, config['help_msg'])
 
 
 bot.polling()
