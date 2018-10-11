@@ -1,5 +1,5 @@
 {
-    "proxy": "socks5://tg-kaelloskye:VACey4bI@ru.socksy.seriyps.ru:7777",
+    "proxy": "",
     "start_msg_file": "joke.txt",
     "help_msg": "Попросите меня что-нибудь подтвердить.\nА еще если вы отправите мне стикер, я верну вам его как изображение.",
     "bot_replies": ["Подтверждаю.", "Угу!"],
