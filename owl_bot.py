@@ -14,6 +14,11 @@ if TGBOT_PROXY:
 bot = telebot.TeleBot(TGBOT_TOKEN)
 
 
+@bot.message_handler(content_types=['sticker'])
+def get_sticker(message):
+    bot.send_message(message.chat.id, 'Вы прислали стикер!')
+
+
 @bot.message_handler(regexp=r'подтвер[ж]?д[аи]+[е]?(?:шь)?')
 def confirm_smth(message):
     words = ['Подтверждаю', 'Угу']
