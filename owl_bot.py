@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import telebot
+from random import choice
 
 # токен и прокси для запуска на локальной машине
 TGBOT_TOKEN = '695541521:AAGv5DL2dt4GYuaD1qU2JKVdNMJ9nCtBT8E'
@@ -11,6 +12,12 @@ if TGBOT_PROXY:
     telebot.apihelper.proxy = dict(https=TGBOT_PROXY)
 
 bot = telebot.TeleBot(TGBOT_TOKEN)
+
+
+@bot.message_handler(regexp=r'подтвер[ж]?д[аи]+[е]?(?:шь)?')
+def confirm_smth(message):
+    words = ['Подтверждаю', 'Угу']
+    bot.send_message(message.chat.id, choice(words))
 
 
 @bot.message_handler(commands=['start'])
