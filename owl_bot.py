@@ -15,7 +15,9 @@ bot = telebot.TeleBot(TGBOT_TOKEN)
 
 @bot.message_handler(commands=['start'])
 def send_welcome_msg(message):
-    bot.send_message(message.chat.id, 'Привет!')
+    with open('joke.txt', encoding='utf-8') as f:
+        welcome_msg = f.read()
+    bot.send_message(message.chat.id, welcome_msg)
 
 
 bot.polling()
