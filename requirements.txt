@@ -1,8 +1,8 @@
-certifi==2018.8.24
+certifi==2018.10.15
 chardet==3.0.4
 idna==2.7
 PySocks==1.6.8
 pyTelegramBotAPI==3.6.6
-requests==2.19.1
+requests==2.20.0
 six==1.11.0
-urllib3==1.23
+urllib3==1.24
